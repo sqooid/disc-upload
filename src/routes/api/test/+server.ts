@@ -1,16 +1,15 @@
+import { PUBLIC_CHANNEL_ID } from '$env/static/public';
+import { serverBot } from '$lib/discord/server-client';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { drizzle } from 'drizzle-orm/d1';
-import { files } from '$lib/database/models';
-import { generateId } from '$lib/database/files';
+import { TextChannel, ChannelType } from 'discord.js';
+import { clientBot } from '$lib/discord/browser-client';
 
 export const GET: RequestHandler = async (req) => {
-	const db = drizzle(req.platform?.env.DB);
-	const { id, buffer } = generateId();
-	console.log({ id, buffer });
-	await db.delete(files);
+	const channel = await clientBot.channels.fetch(PUBLIC_CHANNEL_ID);
+	if (!channel) return json({ message: 'notfound' });
+	const textChannel = channel as TextChannel;
+	const thread = await textChannel.threads.create({ name: 'test', type: ChannelType.PublicThread });
 
-	await db.insert(files).values({ id: buffer as Buffer, threadId: 'test' });
-	const result = await db.select().from(files).all();
-	return json({ files: result });
+	return json({ threadId: thread.id });
 };

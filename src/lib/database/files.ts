@@ -11,3 +11,17 @@ export const generateId = () => {
 	}
 	return { id, buffer: arrayBuffer };
 };
+
+export const uuidToBuffer = (id: string) => {
+	const buffer = uuidBuffer.toBuffer(id);
+	const arrayBuffer = new ArrayBuffer(buffer.length);
+	const view = new Uint8Array(arrayBuffer);
+	for (let i = 0; i < buffer.length; i++) {
+		view[i] = buffer[i];
+	}
+	return arrayBuffer;
+};
+
+export const bufferToUuid = (buffer: ArrayBuffer) => {
+	return uuidBuffer.toString(Buffer.from(buffer));
+};
