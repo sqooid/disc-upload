@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { readFileChunks } from '$lib/discord/file-upload';
+
+	const onFile = async (e: any) => {
+		const file = e.target.files[0];
+		await readFileChunks(file, 5, async (i, data) => {
+			console.log(i, data);
+		});
+	};
+</script>
+
+<div class="">
+	hello
+	<Input type="file" on:input={onFile} />
+</div>

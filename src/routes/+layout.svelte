@@ -1,5 +1,10 @@
 <script>
 	import '../app.css';
+	import '../typography.css';
+	import Header from './header.svelte';
 </script>
 
-<slot></slot>
+<div class="flex w-full flex-col">
+	<Header />
+	<slot></slot>
+</div>
