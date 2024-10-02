@@ -1,27 +1,18 @@
 import { expect, test } from 'vitest';
-import {
-	chunkDecrypt,
-	chunkEncrypt,
-	encryptionAuxBytes,
-	generateKey,
-	readFileChunks
-} from './file-upload';
+import { ChunkReader } from './chunking';
+import { generateKey, chunkEncrypt, encryptionAuxBytes, chunkDecrypt } from './file';
 
 test('file chunking', async () => {
 	const file = new File(['hello world'], 'hello.txt');
-	const chunkSize = 5;
+	const reader = new ChunkReader(file, 5);
 	const chunks: ArrayBuffer[] = [];
-	const callback = async (index: number, data: ArrayBuffer) => {
-		chunks[index] = data;
-	};
-	await readFileChunks(file, chunkSize, callback);
+	while (!reader.isDone) {
+		chunks.push(await reader.nextChunk());
+	}
 	expect(chunks.length).toBe(3);
-	const text = new TextDecoder().decode(chunks[0]);
-	expect(text).toBe('hello');
-	const text2 = new TextDecoder().decode(chunks[1]);
-	expect(text2).toBe(' worl');
-	const text3 = new TextDecoder().decode(chunks[2]);
-	expect(text3).toBe('d');
+	expect(new TextDecoder().decode(chunks[0])).toBe('hello');
+	expect(new TextDecoder().decode(chunks[1])).toBe(' worl');
+	expect(new TextDecoder().decode(chunks[2])).toBe('d');
 });
 
 test('chunk encrypt', async () => {
@@ -33,7 +24,7 @@ test('chunk encrypt', async () => {
 	expect(encrypted.byteLength).toBe(testData.byteLength + encryptionAuxBytes);
 });
 
-test('chunk decrypt', async () => {
+test('chunk encrypt/decrypt', async () => {
 	const keyString = 'test-key';
 	const key = await generateKey(keyString);
 	const testText = 'hello world';

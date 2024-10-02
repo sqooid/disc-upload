@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@discordjs/rest':
+        specifier: ^2.4.0
+        version: 2.4.0
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
@@ -20,6 +23,9 @@ importers:
       cmdk-sv:
         specifier: ^0.0.18
         version: 0.0.18(svelte@5.0.0-next.260)
+      discord-api-types:
+        specifier: ^0.37.101
+        version: 0.37.101
       discord.js:
         specifier: ^14.16.3
         version: 14.16.3
@@ -1590,6 +1596,9 @@ packages:
 
   discord-api-types@0.37.100:
     resolution: {integrity: sha512-a8zvUI0GYYwDtScfRd/TtaNBDTXwP5DiDVX7K5OmE+DRT57gBqKnwtOC5Ol8z0mRW8KQfETIgiB8U0YZ9NXiCA==}
+
+  discord-api-types@0.37.101:
+    resolution: {integrity: sha512-2wizd94t7G3A8U5Phr3AiuL4gSvhqistDwWnlk1VLTit8BI1jWUncFqFQNdPbHqS3661+Nx/iEyIwtVjPuBP3w==}
 
   discord-api-types@0.37.83:
     resolution: {integrity: sha512-urGGYeWtWNYMKnYlZnOnDHm8fVRffQs3U0SpE8RHeiuLKb/u92APS8HoQnPTFbnXmY1vVnXjXO4dOxcAn3J+DA==}
@@ -4372,6 +4381,8 @@ snapshots:
   didyoumean@1.2.2: {}
 
   discord-api-types@0.37.100: {}
+
+  discord-api-types@0.37.101: {}
 
   discord-api-types@0.37.83: {}
 
