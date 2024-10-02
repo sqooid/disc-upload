@@ -14,7 +14,8 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"deploy": "pnpm run build && wrangler pages deploy",
-		"cf-typegen": "wrangler types && move worker-configuration.d.ts src/"
+		"cf-typegen": "wrangler types && move worker-configuration.d.ts src/",
+		"db:migrate": "drizzle-kit generate && wrangler d1 migrations apply DB && wrangler d1 migrations apply DB --remote"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240925.0",
@@ -25,6 +26,7 @@
 		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
 		"@tailwindcss/typography": "^0.5.14",
 		"@types/eslint": "^9.6.0",
+		"@types/uuid": "^10.0.0",
 		"autoprefixer": "^10.4.20",
 		"drizzle-kit": "^0.24.2",
 		"eslint": "^9.0.0",
@@ -59,6 +61,8 @@
 		"sveltekit-superforms": "^2.19.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
+		"uuid": "^10.0.0",
+		"uuid-buffer": "^1.0.3",
 		"vaul-svelte": "^0.3.2",
 		"zod": "^3.23.8"
 	}
